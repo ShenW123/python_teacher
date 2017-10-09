@@ -37,9 +37,12 @@ def test_should_error_generator(annual_salary, portion_saved, total_cost, answer
     def test(self):
         with self.assertRaises(Exception) as raised:
             signal.alarm(TIMEOUT_VALUE)
-            result = ps1a.main(annual_salary, portion_saved, total_cost)
-            self.assertEqual(answer, result)
-        self.assertFalse(raised, TimeoutException)
+            try:
+                result = ps1a.main(annual_salary, portion_saved, total_cost)
+                self.assertEqual(answer, result)
+            except TimeoutException:
+                print("TimeoutException Raised, Not a successful Exception")
+                self.fail
     return test
 
 if __name__ == '__main__':
